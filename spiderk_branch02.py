@@ -44,12 +44,25 @@ htmlsoup = BeautifulSoup(web, "html.parser")
 #print(soup) to see the html code from the website
 
 
-"""
+
 # Quita el texto que haya dentro de las etiquetas <script> (código javascript) y <style> (Estilos CSS).
 # Ninguno de esos textos nos interesa.
-for script in soup(["script", "style"]):
+for script in htmlsoup(["script", "style"]):
     script.extract()
-"""
+
 
 entries = htmlsoup.find_all("div")
 #print(entries)
+
+wordsList = []
+
+for entry in entries:
+    text = entry.getText()
+    pass # clean text function
+    words = text.split()
+    for word in words:
+        wordsList.append(word)
+    #print (text)
+
+for word in wordsList:
+    print(word)
