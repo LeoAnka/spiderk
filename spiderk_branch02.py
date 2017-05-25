@@ -1,6 +1,3 @@
-
-
-
 import sqlite3
 import urllib.request
 from bs4 import BeautifulSoup
