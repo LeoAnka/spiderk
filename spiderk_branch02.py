@@ -19,6 +19,24 @@ scontext = None
 # 5. Guardar cada palabra y el número de veces que ha salido.
 
 
+#------------------------
+
+# claning of the text
+def textCleaner(text):
+    text.strip()
+    if len(text)<1:
+        return text
+    text = text.lower()
+    chars = "0123456789/\"&.!$?,:;-_()„"
+    for c in chars:
+        text = text.replace(c, " ")
+    return text
+
+#------------------------
+
+
+
+
 conn = sqlite3.connect("webdata.sqlite")
 cur = conn.cursor()
 
@@ -55,11 +73,17 @@ wordsList = []
 
 for entry in entries:
     text = entry.getText()
-    pass # clean text function
-    words = text.split()
+    cleanedText = textCleaner(text) # clean text function
+    #print(cleanedText)
+
+    words = cleanedText.split()
+
     for word in words:
-        wordsList.append(word)
-    #print (text)
+        if len(word)<2:
+            continue
+        else:
+            wordsList.append(word)
+
 
 for word in wordsList:
     print(word)
