@@ -27,7 +27,7 @@ def textCleaner(text):
     if len(text)<1:
         return text
     text = text.lower()
-    chars = "0123456789/\"&.!$?,:;-_()„"
+    chars = "0123456789/\"&.!$?,:;-_()„=´{}[]<>@%·|ºª"
     for c in chars:
         text = text.replace(c, " ")
     return text
@@ -41,8 +41,8 @@ conn = sqlite3.connect("webdata.sqlite")
 cur = conn.cursor()
 
 
-url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
-
+#url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
+url = "https://slowgerman.com/"
 # check url is correct and exists
 urlcode = urllib.request.urlopen(url).getcode()
 print("urlcode", urlcode) # if code = 200, all is ok
