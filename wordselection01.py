@@ -40,8 +40,3 @@ for row in cur.execute(allwords):
 
 for row in filterwords:
     print(row[0], row[1])
-
-"""
-for row in cur.execute("SELECT word, count FROM words ORDER BY count DESC LIMIT ?", (many,)):
-    print(row[0], row[1])
-"""

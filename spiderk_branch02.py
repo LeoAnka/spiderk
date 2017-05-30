@@ -42,16 +42,31 @@ conn = sqlite3.connect("webdata.sqlite")
 cur = conn.cursor()
 
 
-url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
+#url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
 #url = "http://slowgerman.com/"
 #url = "http://elpais.com/"
 
-# check url is correct and exists
-urlcode = urllib.request.urlopen(url).getcode()
-if urlcode == 200:                        # if code = 200, all is ok
-    print("\nconection success with your web:")
-    print(url)
-    print("\n")
+try:
+    url = input("WEB LINK to analyse (or just ´ENTER´ for example web):")
+    if len(url) < 1:
+        url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
+        print("\nDefault web will be:")
+        print("http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html")
+
+except:
+    url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
+    print("wrong input. Default web will be:\n\n")
+    print("http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html")
+
+try:
+    # check url is correct and exists
+    urlcode = urllib.request.urlopen(url).getcode()
+    if urlcode == 200:                        # if code = 200, all is ok
+        print("\nconection success with your web:")
+        print(url)
+        print("\n")
+except:
+    print("could not open this web")
 
 
 web = urllib.request.urlopen(url).read()  #.decode('utf8') to see html tree
@@ -123,7 +138,9 @@ cur.execute("""CREATE TABLE IF NOT EXISTS words (word TEXT UNIQUE, count INTEGER
 
 cur.execute("""CREATE TABLE IF NOT EXISTS links (url TEXT UNIQUE)""")
 
-for word in dicSorted[0:201]:
+for foundword in dicSorted[0:201]:
     #print(word)
-    cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (word, dic[word]))
+    pass # try: set value in words table where word = foundword (count = count + dic[foundword])
+    #except:
+    cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (foundword, dic[foundword]))
 database.commit()
