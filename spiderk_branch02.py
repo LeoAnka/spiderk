@@ -123,7 +123,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS words (word TEXT UNIQUE, count INTEGER
 
 cur.execute("""CREATE TABLE IF NOT EXISTS links (url TEXT UNIQUE)""")
 
-for word in dicSorted[0:101]:
+for word in dicSorted[0:201]:
     #print(word)
-    cur.execute("INSERT INTO words (word, count) VALUES (?, ?)", (word, dic[word]))
+    cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (word, dic[word]))
 database.commit()
