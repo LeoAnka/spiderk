@@ -89,8 +89,8 @@ except:
     print("Analysing selected web:\n%s" %url)
     analysed = False
 
-#if analysed == True:
-    #sys.exit(0)
+if analysed == True:
+    sys.exit(0)
 
 
 web = urllib.request.urlopen(url).read()  #.decode('utf8') to see html tree
@@ -166,7 +166,6 @@ for foundword in dicSorted[0:11]:
     try:
         word = cur.fetchone()[0]
         cur.execute("UPDATE words SET count = count + ? WHERE word = ?", (dic[foundword], foundword))
-        print("01")
     except:
         cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (foundword, dic[foundword]))
 
