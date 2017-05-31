@@ -89,6 +89,8 @@ except:
     print("Analysing selected web:\n%s" %url)
     analysed = False
 
+#if analysed == True:
+    #sys.exit(0)
 
 
 web = urllib.request.urlopen(url).read()  #.decode('utf8') to see html tree
@@ -155,9 +157,18 @@ for word in dicSorted[0:11]:       #TO SEE SORTED DICTIONARY enties 1-10
 
 
 
-    #pass # try: set value in words table where word = foundword (count = count + dic[foundword])
+for foundword in dicSorted[0:11]:
+    print(foundword)
+
+    #cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (foundword, dic[foundword]))
+    cur.execute("SELECT word FROM words WHERE word = ?", (foundword,))
+
     try:
+        word = cur.fetchone()[0]
+        cur.execute("UPDATE words SET count = count + ? WHERE word = ?", (dic[foundword], foundword))
+        print("01")
     except:
+        cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (foundword, dic[foundword]))
 
 #database.commit()
 
