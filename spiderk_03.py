@@ -14,18 +14,19 @@ import time
 scontext = None
 
 
-# Elegir una página web.
-# Extraer el texto de esa página.
-# Limpiarlo de caracteres no válidos
-# Dividirlo en palabras.
-# Quitar las palabras no válidas (números, artículos, etc.).
-# Guardar cada palabra y el número de veces que ha salido.
-# Interrupt crl + C by user
+#[x] Elegir una página web.
+#[x] Extraer el texto de esa página.
+#[x] Limpiarlo de caracteres no válidos
+#[x] Dividirlo en palabras.
+#[x] Quitar las palabras no válidas (números, artículos, etc.).
+#[x] Guardar cada palabra y el número de veces que ha salido.
+#[x] clean web url end
+#[] Interrupt crl + C by user
 
 
 #------------------------
 
-# claning of the text
+# cleaning of the text
 def textCleaner(text):
     text.strip()
     if len(text)<1:
@@ -37,7 +38,18 @@ def textCleaner(text):
     return text
 
 #------------------------
+#------------------------
 
+# cleaning url
+def cleanUrl(url):
+    pos = len(url)
+    if url[pos-1] == "/":     # check if url ends with "/" and removes it
+        cleanedUrl = url[0:pos-1]
+        return cleanedUrl
+    else:
+        return url
+
+#------------------------
 
 
 
@@ -61,6 +73,7 @@ try:
         url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
         print("\nDefault web will be:")
         print("http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html")
+    url = cleanUrl(url)
 
 except:
     url = "http://www.faz.net/aktuell/wirtschaft/unternehmen/deutsche-bahn-auf-chef-suche-alles-hoert-auf-kein-kommando-14844033.html"
@@ -124,7 +137,7 @@ for entry in entries:
     words = cleanedText.split()
 
     for word in words:
-        if len(word)<2:
+        if len(word)<2: # to make sure it is a word and not just a letter
             continue
         else:
             wordsList.append(word)
@@ -158,7 +171,7 @@ for word in dicSorted[0:11]:       #TO SEE SORTED DICTIONARY enties 1-10
 
 
 for foundword in dicSorted[0:11]:
-    print(foundword)
+    #print(foundword)
 
     #cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (foundword, dic[foundword]))
     cur.execute("SELECT word FROM words WHERE word = ?", (foundword,))
