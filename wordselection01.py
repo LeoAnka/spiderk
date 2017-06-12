@@ -1,6 +1,8 @@
 import sqlite3
 import re
 
+#[] filters should be a dictionary as it will be more efficient
+
 
 database = sqlite3.connect("dbwords.sqlite")
 cur = database.cursor()
@@ -12,7 +14,7 @@ except:
     many = 50
     print ("wrong input. Default 50 words will be shown:\n")
 
-filters = ["die", "der", "und", "von"]
+filters = ["die", "der", "und", "von", "zu", "in", "für", "ist"]
 
 #while (many > 0):
 
@@ -38,5 +40,12 @@ for row in cur.execute(allwords):
             break
 
 
-for row in filterwords:
+for row in filterwords:     # to see filtered words
     print(row[0], row[1])
+
+
+js = open("flare.csv", "w")
+js.write("id,value")
+for row in filterwords:
+    js.write("\n%s,%i" %(row[0], row[1]))
+js.close()

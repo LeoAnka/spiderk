@@ -170,7 +170,7 @@ for word in dicSorted[0:11]:       #TO SEE SORTED DICTIONARY enties 1-10
 
 
 
-for foundword in dicSorted[0:11]:
+for foundword in dicSorted[0:250]:
     #print(foundword)
 
     #cur.execute("INSERT OR IGNORE INTO words (word, count) VALUES (?, ?)", (foundword, dic[foundword]))
