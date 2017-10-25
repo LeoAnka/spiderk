@@ -164,7 +164,7 @@ dicSorted = sorted(dic, key=dic.get, reverse=True)
 for word in dicSorted:
     print(word, dic[word])         #TO SEE SORTED DICTIONARY
 
-for word in dicSorted[0:11]:       #TO SEE SORTED DICTIONARY enties 1-10
+for word in dicSorted[0:11]:       #TO SEE SORTED DICTIONARY enties 0-10
     print(word, dic[word])
 """
 
